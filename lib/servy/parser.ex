@@ -28,7 +28,7 @@ defmodule Servy.Parser do
 
   @doc """
   Parses the given param string of the form `key1=value1&key2=value2`
-  into a map with coressponding keys and values.
+  into a map with coresponding keys and values.
 
   ## Examples
       iex> params_string = "name=Baloo&type=Brown"

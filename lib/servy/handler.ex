@@ -3,8 +3,8 @@ defmodule Servy.Handler do
   Handles HTTP requests.
   """
 
-  import Servy.Plugins, only: [rewrite_path: 1, track: 1]
   import Servy.Parser, only: [parse: 1]
+  import Servy.Plugins, only: [rewrite_path: 1, track: 1]
 
   alias Servy.Conv
   alias Servy.BearController
@@ -22,6 +22,14 @@ defmodule Servy.Handler do
     |> route
     |> track
     |> format_response
+  end
+
+  def route(%Conv{method: "POST", path: "/pledges"} = conv) do
+    Servy.PledgeController.create(conv, conv.params)
+  end
+
+  def route(%Conv{method: "GET", path: "/pledges"} = conv) do
+    Servy.PledgeController.index(conv)
   end
 
   def route(%Conv{method: "GET", path: "/sensors"} = conv) do

@@ -8,7 +8,6 @@ defmodule Servy.Handler do
 
   alias Servy.Conv
   alias Servy.BearController
-  alias Servy.VideoCam
 
   @pages_path Path.expand("pages", File.cwd!)
 
@@ -33,17 +32,8 @@ defmodule Servy.Handler do
   end
 
   def route(%Conv{method: "GET", path: "/sensors"} = conv) do
-    # task = Task.async(fn -> Servy.Tracker.get_location("bigfoot") end)
-    task = Task.async(Servy.Tracker, :get_location, ["bigfoot"])
-
-    snapshots =
-      ["cam-1", "cam-2", "cam-3"]
-      |> Enum.map(&Task.async(fn -> VideoCam.get_snapshot(&1) end))
-      |> Enum.map(&Task.await/1)
-
-    where_is_bigfoot = Task.await(task)
-
-    %{conv | status: 200, resp_body: inspect {snapshots, where_is_bigfoot}}
+    sensor_data = Servy.SensorServer.get_sensor_data()
+    %{conv | status: 200, resp_body: inspect sensor_data}
   end
 
   def route(%Conv{method: "GET", path: "/kaboom"}) do

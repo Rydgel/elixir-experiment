@@ -50,12 +50,12 @@ defmodule Servy.SensorServer do
 
     task = Task.async(Servy.Tracker, :get_location, ["bigfoot"])
 
-        snapshots =
-          ["cam-1", "cam-2", "cam-3"]
-          |> Enum.map(&Task.async(fn -> Servy.VideoCam.get_snapshot(&1) end))
-          |> Enum.map(&Task.await/1)
+    snapshots =
+      ["cam-1", "cam-2", "cam-3"]
+      |> Enum.map(&Task.async(fn -> Servy.VideoCam.get_snapshot(&1) end))
+      |> Enum.map(&Task.await/1)
 
-        where_is_bigfoot = Task.await(task)
+    where_is_bigfoot = Task.await(task)
 
     %{snapshots: snapshots, location: where_is_bigfoot}
   end

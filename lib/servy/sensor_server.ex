@@ -7,7 +7,7 @@ defmodule Servy.SensorServer do
 
   use GenServer
 
-  # Client Interface
+  # Client interface
 
   def start do
     GenServer.start(__MODULE__, %{}, name: @process_name)

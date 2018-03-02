@@ -21,8 +21,8 @@ defmodule Servy.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
-      {:dogma, "~> 0.1", only: [:dev]},
+      {:credo, "~> 0.9.0-rc3", only: [:dev, :test], runtime: false},
+      {:dogma, "~> 0.1.16", only: [:dev]},
       {:poison, "~> 3.1"},
     ]
   end
